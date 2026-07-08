@@ -1,0 +1,2 @@
+[console_scripts]
+cptest = cptest.cli:main
