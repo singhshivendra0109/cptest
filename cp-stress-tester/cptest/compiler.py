@@ -11,6 +11,12 @@ def compile_cpp(source_path: str, output_path: str) -> None:
         print(f"Error: Source file '{source_path}' does not exist.", file=sys.stderr)
         sys.exit(1)
         
+    with open(source_path, 'r', encoding='utf-8') as f:
+        content = f.read().strip()
+        if not content:
+            print(f"Error: Source file '{source_path}' is completely empty!", file=sys.stderr)
+            sys.exit(1)
+        
     cmd = ["g++", "-O2", "-o", output_path, source_path]
     try:
         result = subprocess.run(cmd, capture_output=True, text=True)
