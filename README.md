@@ -18,35 +18,52 @@ By orchestrating isolated C++ compilation and inter-process communication (IPC) 
 
 ---
 
-## 🚀 Installation
+## 🚀 Installation & Setup (For Beginners)
 
-You can install `cptest` globally on your system using `pip`. Navigate to the project directory and run:
+If you just found this project and want to use it on your own computer, follow these exact steps:
 
+### Step 1: Download the Project
+1. Click the green **Code** button at the top of this GitHub repository and select **Download ZIP**.
+2. Extract the downloaded ZIP file to an easily accessible folder (e.g., `Desktop\cptest-main`).
+
+### Step 2: Install Prerequisites
+Before you can use `cptest`, you must have two things installed on your computer:
+1. **Python (3.7+)**: Download and install it from [python.org](https://www.python.org/downloads/). Make sure to check the box that says "Add Python to PATH" during installation.
+2. **C++ Compiler (g++)**: You need a working C++ compiler. A common choice for Windows is [MinGW-w64](https://www.msys2.org/). Ensure that `g++` is added to your system's Environment Variables (`PATH`).
+
+### Step 3: Install the `cptest` Engine
+1. Open your terminal (Command Prompt or PowerShell).
+2. Use the `cd` command to navigate inside the inner `cp-stress-tester` folder where the Python package lives.
+```bash
+cd C:\path\to\your\extracted\folder\cp-stress-tester
+```
+3. Run the following command to globally install the tool:
 ```bash
 python -m pip install -e .
 ```
-
-*Note: If your environment warns you that the installation script path is not on your Windows `PATH`, you can execute the tool anywhere using `python -m cptest.cli run` instead of just `cptest run`.*
+*(This installs the engine in "editable" mode, meaning any changes you make to the tool's python files will instantly take effect without needing to reinstall).*
 
 ---
 
-## 📖 Usage Guide
+## 📖 How to Use the Stress Tester
 
-To stress test a problem, you only need to write three standard C++ files. You can place these files anywhere on your computer.
+Once installed, you can use the tool from **any folder on your computer**! 
 
-### 1. File Setup
-1. **`gen.cpp` (Generator):** Takes a random seed from `argv[1]` and prints a random test case to `cout`.
-2. **`sol.cpp` (Your Solution):** Reads from `cin` and prints your fast, optimized answer to `cout`.
-3. **`brute.cpp` (Reference):** Reads from `cin` and prints your slow, naive, 100% correct answer to `cout`.
+### Step 1: Prepare Your Files
+Create a new folder anywhere (e.g., `Desktop\my_contest`). Inside that folder, create these three C++ files:
+1. **`gen.cpp` (Generator):** This file must generate exactly **1 random test case** to `cout`. (Do not use `while(t--)` for multiple test cases; the engine handles looping automatically).
+2. **`sol.cpp` (Your Solution):** Your fast, optimized code that you want to test.
+3. **`brute.cpp` (Reference):** Your slow, naive, but 100% mathematically correct code (like an O(N^2) loop).
 
-### 2. Running the Tool
-Open your terminal in the directory containing those three files and run:
-
+### Step 2: Run the Engine
+Open your terminal inside that folder and run:
 ```bash
 python -m cptest.cli run --sol sol.cpp --brute brute.cpp --gen gen.cpp
 ```
 
----
+### Step 3: View Results
+- **If it passes:** It will run 100 random arrays and show a green `[SUCCESS] All 100 iterations passed!`.
+- **If it fails:** It instantly halts, saves the exact failing array to a `fails/` folder, and prints the input alongside the Expected Answer and Actual Answer for immediate debugging!
 
 ## 🔄 Working Flow & Architecture
 
