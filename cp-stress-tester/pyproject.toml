@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cptest"
+version = "0.1.0"
+description = "A Python CLI tool for competitive programmers that automates stress-testing"
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = []
+
+[project.scripts]
+cptest = "cptest.cli:main"
+
+[tool.setuptools]
+packages = ["cptest"]
